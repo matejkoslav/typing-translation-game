@@ -2,6 +2,14 @@
 
 Krátky návod pre kolegov. Cieľ: **stiahnuť → otvoriť v Unity → funguje to.**
 
+## Ako začať (rýchlo)
+
+1. Pošli **Matejovi** svoj **GitHub username** → príde ti pozvánka do repa → **prijmi ju**.
+2. `git clone …` (viď bod 2 nižšie). Ak práva nechceš, sprav namiesto toho **Fork** (bod 4, možnosť B).
+3. Otvor v Unity, rob zmeny, potom **vetva → push → Pull Request** (bod 4).
+
+Ako presne prispievať kódom a čo smie/nesmie do commitu je v bodoch **2, 4 a 5**. 👇
+
 ---
 
 ## 1. Čo potrebuješ (raz nainštalovať)
