@@ -32,6 +32,8 @@ Alternatíva bez Gitu: na GitHube **Code → Download ZIP**. Pozor: so ZIPom neb
 4. Otvor scénu `Assets/Scenes/SampleScene.unity` (dvojklik v *Project* okne).
 5. Stlač **Play** ▶.
 
+> ⚠️ Projekt otváraj **vždy verziou `6000.6.5f1`**. Ak ťa Hub núti na inú verziu, klikni *Cancel* a doinštaluj `6000.6.5f1` — inak sa projekt „upgraduje“ a rozbijeme si zhodu v tíme.
+
 ## 4. Ako prispieť kódom (push)
 
 Repo je **public**, takže klonovať si ho môže ktokoľvek — ale **pushovať priamo doň nemôžeš, kým nemáš práva**. Vyber si jednu možnosť:
@@ -65,10 +67,8 @@ Potom otvor **Pull Request** do `main` a napíš, čo si zmenil.
 - **Dvaja naraz needitujú tú istú scénu ani prefab** (scény sa nedajú zlúčiť). Dohodnite sa vopred.
 - Súbory **presúvajte a premenúvajte v Unity**, nie v prieskumníku — inak sa rozbijú `.meta` odkazy.
 - **`.meta` súbory sa commitujú vždy** a nikdy sa nemažú ručne.
-- Linux je case-sensitive: `Player.fbx` ≠ `player.fbx`.
+- Drž sa **presných názvov** (`Player.fbx` ≠ `player.fbx`) — v tíme sú aj Linux stroje, kde na veľkosti písmen záleží.
 - `main` = stabilná verzia. Nerobiť do nej priame commity.
-
-> **Push práva:** repo je **public** — klonovať a stiahnuť môže ktokoľvek. Aby si mohol pushovať priamo do môjho repa, musíš byť pridaný ako *Collaborator* (napíš mi GitHub username). Alternatíva bez práv: sprav **Fork** a pošli **Pull Request**.
 
 ## 5. Čo sa commitovať MÁ / NEMÁ
 
