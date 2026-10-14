@@ -8,7 +8,7 @@ Krátky návod pre kolegov. Cieľ: **stiahnuť → otvoriť v Unity → funguje 
 
 - **Unity Hub** — <https://unity.com/download>
 - **Unity Editor `6000.6.5f1`** — presne táto verzia (v Unity Hub: *Installs → Install Editor → Archive*)
-- **Git** — <https://git-scm.com/downloads>
+- **Git** — na Windows [Git for Windows](https://git-scm.com/download/win) (nainštaluj vrátane *Git Bash*), na Linux `sudo apt install git`.
 - Odporúčaný modul v Hube: **Windows Build Support** (a/alebo **Linux Build Support**), ak chceš robiť buildy.
 
 > Git LFS zatiaľ **netreba**. Keď pribudnú prvé FBX/audio, pridáme ho dodatočne.
@@ -20,6 +20,8 @@ git clone https://github.com/matejkoslav/typing-translation-game.git
 cd typing-translation-game
 ```
 
+Na Windows to spustíš v **Git Bash** (odporúčané) alebo v **PowerShell** (príkazy sú rovnaké).
+
 Alternatíva bez Gitu: na GitHube **Code → Download ZIP**. Pozor: so ZIPom nebudeš dostávať nové zmeny (`git pull`) a nebudeš vedieť posielať vlastné — preto odporúčam clone.
 
 ## 3. Otvorenie v Unity
@@ -30,18 +32,32 @@ Alternatíva bez Gitu: na GitHube **Code → Download ZIP**. Pozor: so ZIPom neb
 4. Otvor scénu `Assets/Scenes/SampleScene.unity` (dvojklik v *Project* okne).
 5. Stlač **Play** ▶.
 
-## 4. Ako spolu pracujeme (git)
+## 4. Ako prispieť kódom (push)
+
+Repo je **public**, takže klonovať si ho môže ktokoľvek — ale **pushovať priamo doň nemôžeš, kým nemáš práva**. Vyber si jednu možnosť:
+
+**Možnosť A — Collaborator (odporúčané, môžeš pushovať priamo):**
+1. Pošli mi svoj **GitHub username**.
+2. Ja ťa pridám: *repo → Settings → Collaborators → Add people*.
+3. Prijmi pozvánku (e-mail / GitHub) → máš push práva.
+
+**Možnosť B — Fork + Pull Request (bez práv, funguje vždy):**
+1. Na GitHube vpravo hore klikni **Fork** (vznikne tvoja kópia repa).
+2. Klonuj si **svoj fork** a pracuješ v ňom.
+3. Pushni do svojho forku → na GitHube **Contribute → Open pull request**.
+
+**Bežný postup (platí pre obe možnosti):**
 
 ```bash
-git pull                                  # VŽDY pred prácou
-git checkout -b feature/kratky-nazov      # vlastná vetva na prácu
-# ... robíš zmeny, ukladáš scénu/skripty ...
+git pull                                    # VŽDY pred prácou
+git checkout -b feature/kratky-nazov        # vlastná vetva
+# ... zmeny, uloženie scény/skriptov v Unity ...
 git add -A
-git commit -m "Stručný popis zmeny"
-git push -u origin feature/kratky-nazov
+git commit -m "Strucny popis zmeny"
+git push -u origin feature/kratky-nazov     # pri B: origin = tvoj fork
 ```
 
-Potom na GitHube otvor **Pull Request** do `main` a napíš, čo si zmenil.
+Potom otvor **Pull Request** do `main` a napíš, čo si zmenil.
 
 **Pravidlá:**
 
