@@ -1,0 +1,216 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cdea5460d2a46bbae428a3f8b48daf, type: 3}
+  m_Name: WordBank_B1
+  m_EditorClassIdentifier: Assembly-CSharp::WordBank
+  level: 2
+  words:
+  - sk: "sk\xFAsenos\u0165"
+    en: experience
+  - sk: "znalos\u0165"
+    en: knowledge
+  - sk: "schopnos\u0165"
+    en: ability
+  - sk: "pr\xEDle\u017Eitos\u0165"
+    en: opportunity
+  - sk: rozhodnutie
+    en: decision
+  - sk: "v\xFDsledok"
+    en: result
+  - sk: "d\xF4vod"
+    en: reason
+  - sk: "cie\u013E"
+    en: goal
+  - sk: podmienka
+    en: condition
+  - sk: pravidlo
+    en: rule
+  - sk: zvyk
+    en: habit
+  - sk: "spr\xE1vanie"
+    en: behaviour
+  - sk: postoj
+    en: attitude
+  - sk: "n\xE1zor"
+    en: opinion
+  - sk: "d\xF4vera"
+    en: trust
+  - sk: "zodpovednos\u0165"
+    en: responsibility
+  - sk: "povinnos\u0165"
+    en: duty
+  - sk: sloboda
+    en: freedom
+  - sk: "z\xE1kon"
+    en: law
+  - sk: "spravodlivos\u0165"
+    en: justice
+  - sk: mier
+    en: peace
+  - sk: vojna
+    en: war
+  - sk: "vl\xE1da"
+    en: government
+  - sk: "voli\u010D"
+    en: voter
+  - sk: "vo\u013Eby"
+    en: election
+  - sk: "\xFAspech"
+    en: success
+  - sk: "ne\xFAspech"
+    en: failure
+  - sk: chyba
+    en: mistake
+  - sk: riziko
+    en: risk
+  - sk: "v\xFDhoda"
+    en: advantage
+  - sk: "nev\xFDhoda"
+    en: disadvantage
+  - sk: rozdiel
+    en: difference
+  - sk: "podobnos\u0165"
+    en: similarity
+  - sk: zmena
+    en: change
+  - sk: "v\xFDvoj"
+    en: development
+  - sk: rast
+    en: growth
+  - sk: pokles
+    en: decline
+  - sk: miera
+    en: rate
+  - sk: priemer
+    en: average
+  - sk: odhad
+    en: estimate
+  - sk: prieskum
+    en: survey
+  - sk: "spr\xE1va"
+    en: report
+  - sk: "\u010Dl\xE1nok"
+    en: article
+  - sk: noviny
+    en: newspaper
+  - sk: "\u010Dasopis"
+    en: magazine
+  - sk: reklama
+    en: advertisement
+  - sk: "zna\u010Dka"
+    en: brand
+  - sk: "z\xE1kazn\xEDk"
+    en: customer
+  - sk: "dod\xE1vate\u013E"
+    en: supplier
+  - sk: konkurencia
+    en: competition
+  - sk: trh
+    en: market
+  - sk: "da\u0148"
+    en: tax
+  - sk: poplatok
+    en: fee
+  - sk: zmluva
+    en: contract
+  - sk: dohoda
+    en: agreement
+  - sk: "s\xFAhlas"
+    en: consent
+  - sk: "n\xE1vrh"
+    en: proposal
+  - sk: "koment\xE1r"
+    en: comment
+  - sk: "ot\xE1zka"
+    en: question
+  - sk: "odpove\u010F"
+    en: answer
+  - sk: "rie\u0161enie"
+    en: solution
+  - sk: "probl\xE9m"
+    en: problem
+  - sk: "pr\xEDklad"
+    en: example
+  - sk: "sk\xFA\u0161ka"
+    en: exam
+  - sk: predmet
+    en: subject
+  - sk: vzdelanie
+    en: education
+  - sk: vedec
+    en: scientist
+  - sk: "v\xFDskum"
+    en: research
+  - sk: objav
+    en: discovery
+  - sk: "vyn\xE1lez"
+    en: invention
+  - sk: "technol\xF3gia"
+    en: technology
+  - sk: zariadenie
+    en: device
+  - sk: "n\xE1stroj"
+    en: tool
+  - sk: postup
+    en: process
+  - sk: "met\xF3da"
+    en: method
+  - sk: "syst\xE9m"
+    en: system
+  - sk: "sie\u0165"
+    en: network
+  - sk: zdroj
+    en: source
+  - sk: "d\xE1tum"
+    en: date
+  - sk: "inform\xE1cia"
+    en: information
+  - sk: prepojenie
+    en: link
+  - sk: obsah
+    en: content
+  - sk: "v\xFDznam"
+    en: meaning
+  - sk: jazyk
+    en: language
+  - sk: preklad
+    en: translation
+  - sk: "v\xFDslovnos\u0165"
+    en: pronunciation
+  - sk: "slovn\xEDk"
+    en: dictionary
+  - sk: veta
+    en: sentence
+  - sk: odsek
+    en: paragraph
+  - sk: kapitola
+    en: chapter
+  - sk: "pr\xEDbeh"
+    en: story
+  - sk: postava
+    en: character
+  - sk: dej
+    en: plot
+  - sk: "z\xE1ver"
+    en: conclusion
+  - sk: "\xFAvod"
+    en: introduction
+  - sk: zhrnutie
+    en: summary
+  - sk: "pozn\xE1mka"
+    en: note
+  - sk: "d\xF4kaz"
+    en: evidence
+  - sk: "n\xE1sledok"
+    en: consequence
+  - sk: hodnotenie
+    en: evaluation

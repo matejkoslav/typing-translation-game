@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cdea5460d2a46bbae428a3f8b48daf, type: 3}
+  m_Name: WordBank_A1
+  m_EditorClassIdentifier: Assembly-CSharp::WordBank
+  level: 0
+  words:
+  - sk: "ma\u0165"
+    en: have
+  - sk: "by\u0165"
+    en: be
+  - sk: "\xEDs\u0165"
+    en: go
+  - sk: "robi\u0165"
+    en: do
+  - sk: "vidie\u0165"
+    en: see
+  - sk: "jes\u0165"
+    en: eat
+  - sk: "pi\u0165"
+    en: drink
+  - sk: "spa\u0165"
+    en: sleep
+  - sk: dom
+    en: house
+  - sk: auto
+    en: car
+  - sk: kniha
+    en: book
+  - sk: "st\xF4l"
+    en: table
+  - sk: okno
+    en: window
+  - sk: dvere
+    en: door
+  - sk: "\u0161kola"
+    en: school
+  - sk: "u\u010Dite\u013E"
+    en: teacher
+  - sk: mesto
+    en: city
+  - sk: dedina
+    en: village
+  - sk: voda
+    en: water
+  - sk: mlieko
+    en: milk
+  - sk: chlieb
+    en: bread
+  - sk: jablko
+    en: apple
+  - sk: "m\xE4so"
+    en: meat
+  - sk: ryba
+    en: fish
+  - sk: vajce
+    en: egg
+  - sk: syr
+    en: cheese
+  - sk: "de\u0148"
+    en: day
+  - sk: noc
+    en: night
+  - sk: "r\xE1no"
+    en: morning
+  - sk: "ve\u010Der"
+    en: evening
+  - sk: "t\xFD\u017Ede\u0148"
+    en: week
+  - sk: rok
+    en: year
+  - sk: hodina
+    en: hour
+  - sk: "mu\u017E"
+    en: man
+  - sk: "\u017Eena"
+    en: woman
+  - sk: "die\u0165a"
+    en: child
+  - sk: chlapec
+    en: boy
+  - sk: "diev\u010Da"
+    en: girl
+  - sk: matka
+    en: mother
+  - sk: otec
+    en: father
+  - sk: brat
+    en: brother
+  - sk: sestra
+    en: sister
+  - sk: "priate\u013E"
+    en: friend
+  - sk: pes
+    en: dog
+  - sk: "ma\u010Dka"
+    en: cat
+  - sk: "vt\xE1k"
+    en: bird
+  - sk: slnko
+    en: sun
+  - sk: "d\xE1\u017E\u010F"
+    en: rain
+  - sk: sneh
+    en: snow
+  - sk: vietor
+    en: wind
+  - sk: leto
+    en: summer
+  - sk: "jese\u0148"
+    en: autumn
+  - sk: jar
+    en: spring
+  - sk: "mal\xFD"
+    en: small
+  - sk: "ve\u013Ek\xFD"
+    en: big
+  - sk: "nov\xFD"
+    en: new
+  - sk: "star\xFD"
+    en: old
+  - sk: "dobr\xFD"
+    en: good
+  - sk: "r\xFDchly"
+    en: fast
+  - sk: "tepl\xFD"
+    en: warm

@@ -1,0 +1,176 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cdea5460d2a46bbae428a3f8b48daf, type: 3}
+  m_Name: WordBank_A2
+  m_EditorClassIdentifier: Assembly-CSharp::WordBank
+  level: 1
+  words:
+  - sk: sused
+    en: neighbour
+  - sk: "kuchy\u0148a"
+    en: kitchen
+  - sk: "k\xFApe\u013E\u0148a"
+    en: bathroom
+  - sk: "sp\xE1l\u0148a"
+    en: bedroom
+  - sk: koberec
+    en: carpet
+  - sk: stena
+    en: wall
+  - sk: strecha
+    en: roof
+  - sk: "z\xE1hrada"
+    en: garden
+  - sk: kvet
+    en: flower
+  - sk: "tr\xE1va"
+    en: grass
+  - sk: hora
+    en: mountain
+  - sk: rieka
+    en: river
+  - sk: jazero
+    en: lake
+  - sk: more
+    en: sea
+  - sk: ostrov
+    en: island
+  - sk: les
+    en: forest
+  - sk: pole
+    en: field
+  - sk: cesta
+    en: road
+  - sk: most
+    en: bridge
+  - sk: vlak
+    en: train
+  - sk: lietadlo
+    en: plane
+  - sk: "lo\u010F"
+    en: boat
+  - sk: bicykel
+    en: bicycle
+  - sk: "vodi\u010D"
+    en: driver
+  - sk: "cestuj\xFAci"
+    en: passenger
+  - sk: "l\xEDstok"
+    en: ticket
+  - sk: "bato\u017Eina"
+    en: luggage
+  - sk: stanica
+    en: station
+  - sk: letisko
+    en: airport
+  - sk: nemocnica
+    en: hospital
+  - sk: "lek\xE1r"
+    en: doctor
+  - sk: "lek\xE1rnik"
+    en: pharmacist
+  - sk: "pol\xEDcia"
+    en: police
+  - sk: "po\u017Eiar"
+    en: fire
+  - sk: nehoda
+    en: accident
+  - sk: "pr\xE1ca"
+    en: work
+  - sk: plat
+    en: salary
+  - sk: "\xFArad"
+    en: office
+  - sk: firma
+    en: company
+  - sk: porada
+    en: meeting
+  - sk: projekt
+    en: project
+  - sk: "po\u010D\xEDta\u010D"
+    en: computer
+  - sk: "telef\xF3n"
+    en: phone
+  - sk: odkaz
+    en: message
+  - sk: "\xFA\u010Det"
+    en: account
+  - sk: peniaze
+    en: money
+  - sk: banka
+    en: bank
+  - sk: cena
+    en: price
+  - sk: "z\u013Eava"
+    en: discount
+  - sk: obchod
+    en: shop
+  - sk: "n\xE1kup"
+    en: shopping
+  - sk: "reklam\xE1cia"
+    en: complaint
+  - sk: "objedn\xE1vka"
+    en: order
+  - sk: "dod\xE1vka"
+    en: delivery
+  - sk: "bal\xEDk"
+    en: package
+  - sk: "zn\xE1mka"
+    en: stamp
+  - sk: adresa
+    en: address
+  - sk: meno
+    en: name
+  - sk: priezvisko
+    en: surname
+  - sk: narodeniny
+    en: birthday
+  - sk: svadba
+    en: wedding
+  - sk: dovolenka
+    en: holiday
+  - sk: "v\xFDlet"
+    en: trip
+  - sk: "po\u010Dasie"
+    en: weather
+  - sk: teplota
+    en: temperature
+  - sk: "b\xFArka"
+    en: storm
+  - sk: oblak
+    en: cloud
+  - sk: hmla
+    en: fog
+  - sk: "mr\xE1z"
+    en: frost
+  - sk: "\u013Ead"
+    en: ice
+  - sk: snehuliak
+    en: snowman
+  - sk: hra
+    en: game
+  - sk: "t\xEDm"
+    en: team
+  - sk: "z\xE1pas"
+    en: match
+  - sk: "tr\xE9ner"
+    en: coach
+  - sk: hudba
+    en: music
+  - sk: film
+    en: film
+  - sk: divadlo
+    en: theatre
+  - sk: obraz
+    en: picture
+  - sk: tanec
+    en: dance

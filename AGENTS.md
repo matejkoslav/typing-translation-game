@@ -79,7 +79,11 @@
 
 - Pred väčšími zmenami krátky plán (3 body) a potvrdenie.
 - Drž sa konvencií v tomto dokumente; needituj cudzie assety/scény.
+- Stav projektu a next kroky: `PROGRESS.md` — prečítaj pred prácou a aktualizuj po väčšej zmene.
 - Necommituj ani nepushuj bez výslovného pokynu.
 - MCP (Unity) slúži na skladanie scén/prefabov a skriptov; pred použitím musí byť otvorené Unity s bežiacim bridge (Window → MCP for Unity).
+- Ak `unityMCP` tools v session chýbajú (OpenCode sa pripojil skôr, než Unity bridge nabehol), agent spraví reconnect namiesto čakania:
+  `opencode api post "/api/experimental/mcp/unityMCP/connect?location%5Bdirectory%5D=$PWD"`
+  Tools sa objavia aj uprostred session; netreba reštart OpenCode ani editovať config. Unity okno môže nesprávne hlásiť "Not Configured" (kontroluje len globálny config) — ignorovať, nestláčať "Configure".
 - Unity CLI agent skill je v `.agents/skills/unity-cli/` — spravuje ju `unity skill refresh`, needitujte ju ručne (commituje sa s repom).
 - Komunikácia SK/EN prirodzene; kód a identifikátory po anglicky.

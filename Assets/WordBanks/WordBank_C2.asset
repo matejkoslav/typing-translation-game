@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cdea5460d2a46bbae428a3f8b48daf, type: 3}
+  m_Name: WordBank_C2
+  m_EditorClassIdentifier: Assembly-CSharp::WordBank
+  level: 5
+  words:
+  - sk: "neuchopite\u013En\xFD"
+    en: elusive
+  - sk: "neop\xEDsate\u013En\xFD"
+    en: indescribable
+  - sk: "nevyvr\xE1tite\u013En\xFD"
+    en: irrefutable
+  - sk: "nespochybnite\u013En\xFD"
+    en: indisputable
+  - sk: "neprekonate\u013En\xFD"
+    en: insurmountable
+  - sk: "nedostato\u010Dn\xFD"
+    en: deficient
+  - sk: "nadbyto\u010Dn\xFD"
+    en: superfluous
+  - sk: "samo\xFA\u010Deln\xFD"
+    en: gratuitous
+  - sk: "blahosklonn\xFD"
+    en: condescending
+  - sk: "malichern\xFD"
+    en: petty
+  - sk: "ustavi\u010Dn\xFD"
+    en: perpetual
+  - sk: "ob\u010Dasn\xFD"
+    en: sporadic
+  - sk: "premenliv\xFD"
+    en: volatile
+  - sk: "vrtkav\xFD"
+    en: fickle
+  - sk: "tvrdo\u0161ijn\xFD"
+    en: obstinate
+  - sk: "neoblomn\xFD"
+    en: unyielding
+  - sk: "bezoh\u013Eadn\xFD"
+    en: reckless
+  - sk: "v\u0161ete\u010Dn\xFD"
+    en: prying
+  - sk: "zdr\u017Eanliv\xFD"
+    en: reserved
+  - sk: "strojen\xFD"
+    en: contrived
+  - sk: "vyumelkovan\xFD"
+    en: pretentious
+  - sk: "priamo\u010Diary"
+    en: straightforward
+  - sk: "\xFAse\u010Dn\xFD"
+    en: curt
+  - sk: "ob\u0161\xEDrny"
+    en: verbose
+  - sk: "hutn\xFD"
+    en: terse
+  - sk: "nezaujat\xFD"
+    en: impartial
+  - sk: "predpojat\xFD"
+    en: biased
+  - sk: "zhovievav\xFD"
+    en: lenient
+  - sk: "nezmierite\u013En\xFD"
+    en: irreconcilable
+  - sk: "prehnan\xFD"
+    en: excessive

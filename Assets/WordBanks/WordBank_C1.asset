@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cdea5460d2a46bbae428a3f8b48daf, type: 3}
+  m_Name: WordBank_C1
+  m_EditorClassIdentifier: Assembly-CSharp::WordBank
+  level: 4
+  words:
+  - sk: "v\u0161adepr\xEDtomn\xFD"
+    en: ubiquitous
+  - sk: "nejednozna\u010Dn\xFD"
+    en: ambiguous
+  - sk: "nevyhnutn\xFD"
+    en: inevitable
+  - sk: "zanedbate\u013En\xFD"
+    en: negligible
+  - sk: "podstatn\xFD"
+    en: substantial
+  - sk: "vierohodn\xFD"
+    en: credible
+  - sk: "pochybn\xFD"
+    en: dubious
+  - sk: "neochvejn\xFD"
+    en: unwavering
+  - sk: "vytrval\xFD"
+    en: persistent
+  - sk: "svedomit\xFD"
+    en: conscientious
+  - sk: "d\xF4kladn\xFD"
+    en: thorough
+  - sk: "prec\xEDzny"
+    en: precise
+  - sk: rozsiahly
+    en: extensive
+  - sk: "stru\u010Dn\xFD"
+    en: concise
+  - sk: "trefn\xFD"
+    en: apt
+  - sk: "zlo\u017Eit\xFD"
+    en: intricate
+  - sk: "spletit\xFD"
+    en: convoluted
+  - sk: "explicitn\xFD"
+    en: explicit
+  - sk: "implicitn\xFD"
+    en: implicit
+  - sk: "zjavn\xFD"
+    en: obvious
+  - sk: "skryt\xFD"
+    en: concealed
+  - sk: "zradn\xFD"
+    en: treacherous
+  - sk: "ne\xFAnavn\xFD"
+    en: tireless
+  - sk: "m\xE1rny"
+    en: futile
+  - sk: "bezv\xFDznamn\xFD"
+    en: insignificant
+  - sk: "z\xE1va\u017En\xFD"
+    en: grave
+  - sk: "naliehav\xFD"
+    en: urgent
+  - sk: "postupn\xFD"
+    en: gradual
+  - sk: "n\xE1hly"
+    en: abrupt
+  - sk: "trval\xFD"
+    en: permanent
+  - sk: "do\u010Dasn\xFD"
+    en: temporary
+  - sk: "z\xEDska\u0165"
+    en: acquire
+  - sk: "zmierni\u0165"
+    en: mitigate
+  - sk: "podpori\u0165"
+    en: foster
+  - sk: "odhali\u0165"
+    en: reveal
+  - sk: "spochybni\u0165"
+    en: challenge
+  - sk: "pripusti\u0165"
+    en: concede
+  - sk: "namieta\u0165"
+    en: object
+  - sk: "zd\xF4vodni\u0165"
+    en: justify
+  - sk: "vyvodi\u0165"
+    en: infer
+  - sk: "zhrn\xFA\u0165"
+    en: summarise
+  - sk: "na\u010Drtn\xFA\u0165"
+    en: outline
+  - sk: "spresni\u0165"
+    en: refine
+  - sk: "zos\xFAladi\u0165"
+    en: align
+  - sk: "presadi\u0165"
+    en: enforce
+  - sk: "obhajova\u0165"
+    en: advocate
+  - sk: "ods\xFAdi\u0165"
+    en: condemn
+  - sk: "zveli\u010Dova\u0165"
+    en: exaggerate
+  - sk: "bagatelizova\u0165"
+    en: downplay
+  - sk: "kompenzova\u0165"
+    en: compensate
