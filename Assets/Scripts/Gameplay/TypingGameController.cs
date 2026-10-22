@@ -211,12 +211,22 @@ public class TypingGameController : MonoBehaviour
         typedLabel.color = Color.white;
     }
 
+    private IEnumerator FlashCorrect()
+    {
+        typedLabel.color = new Color(0.4f, 1f, 0.4f);
+        scoreLabel.transform.localScale = Vector3.one * 1.15f;
+        yield return new WaitForSeconds(0.15f);
+        typedLabel.color = Color.white;
+        scoreLabel.transform.localScale = Vector3.one;
+    }
+
     private void CorrectWord()
     {
         typed.Clear();
         score++;
         SelectWord(stepIndex + 1);
         RefreshLabels();
+        StartCoroutine(FlashCorrect());
         StartCoroutine(JumpRoutine());
     }
 
