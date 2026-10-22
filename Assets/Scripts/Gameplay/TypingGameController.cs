@@ -17,6 +17,7 @@ public class TypingGameController : MonoBehaviour
     private const string HighScoreKey = "HighScore";
     private const float ShakeDuration = 0.2f;
     private const float ShakeAngle = 1.5f;
+    private const float PlatformSpacing = 2f;
     private static readonly Color LevelColor = new Color(0.5f, 0.8f, 1f);
     private static readonly int[] HintCounts = { 2, 2, 1, 1, 0, 0 };
 
@@ -237,16 +238,22 @@ public class TypingGameController : MonoBehaviour
     {
         int next = stepIndex + 1;
         Transform steps = platformsRoot.transform;
+        Transform target = steps.GetChild(next % steps.childCount);
 
         if (next >= steps.childCount)
         {
-            Win();
-            yield break;
+            float topY = float.MinValue;
+            for (int i = 0; i < steps.childCount; i++)
+            {
+                topY = Mathf.Max(topY, steps.GetChild(i).position.y);
+            }
+
+            Vector3 targetPosition = target.position;
+            target.position = new Vector3(targetPosition.x, topY + PlatformSpacing, targetPosition.z);
         }
 
         jumping = true;
 
-        Transform target = steps.GetChild(next);
         Vector3 start = transform.position;
         Vector3 end = target.position;
         end.y = target.position.y + target.lossyScale.y * 0.5f + 1f;
@@ -391,16 +398,6 @@ public class TypingGameController : MonoBehaviour
         {
             playerRenderer.enabled = false;
         }
-    }
-
-    private void Win()
-    {
-        alive = false;
-        bool newBest = SaveScore();
-        infoLabel.text = "VYHRAL SI!"
-            + (newBest ? "\nNEW BEST!" : string.Empty)
-            + "\nStla\u010d R pre restart";
-        infoLabel.color = new Color(0.4f, 1f, 0.4f);
     }
 
     private void BuildUi()
