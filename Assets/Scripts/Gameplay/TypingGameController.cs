@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -12,18 +13,7 @@ using UnityEngine.UI;
 /// </summary>
 public class TypingGameController : MonoBehaviour
 {
-    private struct WordPair
-    {
-        public readonly string sk;
-        public readonly string en;
-
-        public WordPair(string sk, string en)
-        {
-            this.sk = sk;
-            this.en = en;
-        }
-    }
-
+    [SerializeField] private WordBank[] wordBanks;
     [SerializeField] private GameObject platformsRoot;
     [SerializeField] private GameObject cameraObject;
     [SerializeField] private float cameraRiseSpeed = 0.35f;
@@ -32,22 +22,10 @@ public class TypingGameController : MonoBehaviour
     [SerializeField] private float jumpDuration = 0.35f;
     [SerializeField] private float jumpArcHeight = 0.9f;
 
-    private static readonly WordPair[] Words =
-    {
-        new WordPair("ma\u010dka", "cat"),
-        new WordPair("pes", "dog"),
-        new WordPair("dom", "house"),
-        new WordPair("voda", "water"),
-        new WordPair("chlieb", "bread"),
-        new WordPair("kniha", "book"),
-        new WordPair("strom", "tree"),
-        new WordPair("slnko", "sun"),
-        new WordPair("mesto", "city"),
-        new WordPair("priate\u013e", "friend"),
-    };
-
     private readonly StringBuilder typed = new StringBuilder();
-    private int wordIndex;
+    private readonly HashSet<int> usedWordIndices = new HashSet<int>();
+    private WordBank currentBank;
+    private WordBank.WordEntry currentWord;
     private int score;
     private int stepIndex;
     private bool alive = true;
@@ -66,6 +44,13 @@ public class TypingGameController : MonoBehaviour
             platformsRoot = GameObject.Find("Platforms");
         }
 
+        if (wordBanks == null || wordBanks.Length == 0)
+        {
+            Debug.LogError("TypingGameController: no word banks assigned.");
+            enabled = false;
+            return;
+        }
+
         if (cameraObject == null && Camera.main != null)
         {
             cameraObject = Camera.main.gameObject;
@@ -77,6 +62,7 @@ public class TypingGameController : MonoBehaviour
             + Mathf.Tan(Mathf.Abs(cameraObject.transform.eulerAngles.x) * Mathf.Deg2Rad) * cameraDistance;
 
         BuildUi();
+        SelectWord(0);
         RefreshLabels();
 
         if (Keyboard.current != null)
@@ -134,7 +120,7 @@ public class TypingGameController : MonoBehaviour
         }
 
         typed.Append(char.ToLowerInvariant(c));
-        string target = Words[wordIndex].en;
+        string target = currentWord.en;
 
         if (typed.Length >= target.Length)
         {
@@ -158,7 +144,7 @@ public class TypingGameController : MonoBehaviour
     {
         typed.Clear();
         score++;
-        wordIndex = (wordIndex + 1) % Words.Length;
+        SelectWord(stepIndex + 1);
         RefreshLabels();
         StartCoroutine(JumpRoutine());
     }
@@ -197,16 +183,42 @@ public class TypingGameController : MonoBehaviour
         jumping = false;
     }
 
+    private void SelectWord(int step)
+    {
+        int bankCount = platformsRoot.transform.childCount;
+        int bankIndex = Mathf.Clamp(step * wordBanks.Length / Mathf.Max(1, bankCount), 0, wordBanks.Length - 1);
+        WordBank bank = wordBanks[bankIndex];
+
+        if (bank != currentBank)
+        {
+            currentBank = bank;
+            usedWordIndices.Clear();
+        }
+
+        if (usedWordIndices.Count >= bank.Count)
+        {
+            usedWordIndices.Clear();
+        }
+
+        int index;
+        do
+        {
+            index = Random.Range(0, bank.Count);
+        } while (usedWordIndices.Contains(index));
+
+        usedWordIndices.Add(index);
+        currentWord = bank.Words[index];
+    }
+
     private void RefreshLabels()
     {
-        WordPair word = Words[wordIndex];
-        wordLabel.text = "Prelo\u017e: " + word.sk;
+        wordLabel.text = "Prelo\u017e: " + currentWord.sk;
 
         var sb = new StringBuilder();
-        for (int i = 0; i < word.en.Length; i++)
+        for (int i = 0; i < currentWord.en.Length; i++)
         {
             sb.Append(i < typed.Length ? typed[i] : '_');
-            if (i < word.en.Length - 1)
+            if (i < currentWord.en.Length - 1)
             {
                 sb.Append(' ');
             }

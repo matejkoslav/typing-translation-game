@@ -1248,6 +1248,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0ac095a81da5004bbaac8c49391cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TypingGameController
+  wordBanks:
+  - {fileID: 11400000, guid: fa72d0a8497a6862790047e235d2b9b8, type: 2}
+  - {fileID: 11400000, guid: 98a8f7af7b080e8ff958fee0b09b7533, type: 2}
+  - {fileID: 11400000, guid: 2a494b62fbebb401ab9edb778ec3972c, type: 2}
+  - {fileID: 11400000, guid: 778514eb0d9af981f955bfaeb6ddbaff, type: 2}
+  - {fileID: 11400000, guid: 5303039f29889c35e8f446439f98ae40, type: 2}
+  - {fileID: 11400000, guid: 63be94551dd110efdbe8c18fef7a7d80, type: 2}
   platformsRoot: {fileID: 1767201777}
   cameraObject: {fileID: 330585543}
   cameraRiseSpeed: 0.25

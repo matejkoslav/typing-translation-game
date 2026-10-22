@@ -9,6 +9,8 @@
       písanie SK→EN, skok postavičky, stúpajúca kamera, smrť pod kamerou, skóre, game over.
 - [x] Word banky A1–C2 — `Assets/WordBanks/WordBank_A1.asset` … `_C2.asset` (**420 párov**)
       + SO trieda `WordBank` v `Assets/Scripts/Data/WordBank.cs` (`CefrLevel` enum, `Words`).
+- [x] Banky napojené do controllera — `WordBank[]` v inspektore (A1→C2), výber banky podľa
+      postupu (2 platformy na level), random bez opakovania v rámci banky.
 
 | Banka | Párov |
 |---|---|
@@ -21,12 +23,10 @@
 
 ## Next — v tomto poradí 🔜
 
-1. **Napojiť banky do controllera**: nahradiť hardcoded `Words[]` poľom `WordBank[]` v inspektore
-   (alebo jedným poľom + level), výber banky podľa výšky, random bez opakovania v rámci kola.
-2. **Nápovedy podľa levelu**: dashes + `hintCount` (A1 ~2 písmená → C2 0) v `wordLabel`.
-3. **Časový limit na slovo** podľa levelu (A1 ~8 s → C2 ~4 s), smrť pri vypršaní.
-4. **EN→SK mód** (prepínač) + tolerantné porovnávanie (lowercase, bez diakritiky).
-5. **Polish**: zvuk skoku/level-up, particles, pozadie.
+1. **Nápovedy podľa levelu**: dashes + `hintCount` (A1 ~2 písmená → C2 0) v `wordLabel`.
+2. **Časový limit na slovo** podľa levelu (A1 ~8 s → C2 ~4 s), smrť pri vypršaní.
+3. **EN→SK mód** (prepínač) + tolerantné porovnávanie (lowercase, bez diakritiky).
+4. **Polish**: zvuk skoku/level-up, particles, pozadie.
 
 ## Poznámky 📌
 
