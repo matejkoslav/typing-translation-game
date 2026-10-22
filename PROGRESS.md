@@ -13,6 +13,8 @@
       postupu (2 platformy na level), random bez opakovania v rámci banky.
 - [x] UI polish — level badge + pulse, high score + NEW BEST, restart R (aj počas pauzy),
       zelený/červený flash, screen shake, ESC pauza, death animácia.
+- [x] Hint písmená — A1 2 → C2 0; vypína sa v Inspectori cez `hintsEnabled`.
+- [x] Endless mode — plošiny sa recyklujú, hra nekončí po 12 slovách.
 
 | Banka | Párov |
 |---|---|
@@ -25,10 +27,9 @@
 
 ## Next — v tomto poradí 🔜
 
-1. **Nápovedy podľa levelu**: dashes + `hintCount` (A1 ~2 písmená → C2 0) v `wordLabel`.
-2. **Časový limit na slovo** podľa levelu (A1 ~8 s → C2 ~4 s), smrť pri vypršaní.
-3. **EN→SK mód** (prepínač) + tolerantné porovnávanie (lowercase, bez diakritiky).
-4. **Polish**: zvuk skoku/level-up, particles, pozadie.
+1. **Časový limit na slovo** podľa levelu (A1 ~8 s → C2 ~4 s), smrť pri vypršaní.
+2. **EN→SK mód** (prepínač) + tolerantné porovnávanie (lowercase, bez diakritiky).
+3. **Polish**: zvuk skoku/level-up, particles, pozadie.
 
 ## Poznámky 📌
 
