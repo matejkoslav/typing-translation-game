@@ -18,6 +18,7 @@ public class TypingGameController : MonoBehaviour
     private const float ShakeDuration = 0.2f;
     private const float ShakeAngle = 1.5f;
     private static readonly Color LevelColor = new Color(0.5f, 0.8f, 1f);
+    private static readonly int[] HintCounts = { 2, 2, 1, 1, 0, 0 };
 
     [SerializeField] private WordBank[] wordBanks;
     [SerializeField] private GameObject platformsRoot;
@@ -27,6 +28,7 @@ public class TypingGameController : MonoBehaviour
     [SerializeField] private float cameraFollowSpeed = 6f;
     [SerializeField] private float jumpDuration = 0.35f;
     [SerializeField] private float jumpArcHeight = 0.9f;
+    [SerializeField] private bool hintsEnabled = true;
 
     private readonly StringBuilder typed = new StringBuilder();
     private readonly HashSet<int> usedWordIndices = new HashSet<int>();
@@ -318,10 +320,16 @@ public class TypingGameController : MonoBehaviour
     {
         wordLabel.text = "Prelo\u017e: " + currentWord.sk;
 
+        int hintCount = hintsEnabled ? HintCounts[(int)currentBank.Level] : 0;
+        hintCount = Mathf.Min(hintCount, currentWord.en.Length - 1);
+
         var sb = new StringBuilder();
         for (int i = 0; i < currentWord.en.Length; i++)
         {
-            sb.Append(i < typed.Length ? typed[i] : '_');
+            char letter = i < typed.Length
+                ? typed[i]
+                : (i < hintCount ? currentWord.en[i] : '_');
+            sb.Append(letter);
             if (i < currentWord.en.Length - 1)
             {
                 sb.Append(' ');
