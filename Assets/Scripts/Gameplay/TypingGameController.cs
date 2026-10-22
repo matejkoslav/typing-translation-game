@@ -4,6 +4,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -13,6 +14,11 @@ using UnityEngine.UI;
 /// </summary>
 public class TypingGameController : MonoBehaviour
 {
+    private const string HighScoreKey = "HighScore";
+    private const float ShakeDuration = 0.2f;
+    private const float ShakeAngle = 1.5f;
+    private static readonly Color LevelColor = new Color(0.5f, 0.8f, 1f);
+
     [SerializeField] private WordBank[] wordBanks;
     [SerializeField] private GameObject platformsRoot;
     [SerializeField] private GameObject cameraObject;
@@ -27,18 +33,26 @@ public class TypingGameController : MonoBehaviour
     private WordBank currentBank;
     private WordBank.WordEntry currentWord;
     private int score;
+    private int bestScore;
     private int stepIndex;
     private bool alive = true;
     private bool jumping;
+    private bool paused;
     private float cameraHalfHeight;
+    private float shakeTime;
+    private Quaternion baseCameraRotation;
 
     private TextMeshProUGUI wordLabel;
     private TextMeshProUGUI typedLabel;
     private TextMeshProUGUI scoreLabel;
+    private TextMeshProUGUI levelLabel;
+    private TextMeshProUGUI bestLabel;
     private TextMeshProUGUI infoLabel;
 
     private void Start()
     {
+        Time.timeScale = 1f;
+
         if (platformsRoot == null)
         {
             platformsRoot = GameObject.Find("Platforms");
@@ -51,10 +65,14 @@ public class TypingGameController : MonoBehaviour
             return;
         }
 
+        bestScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+
         if (cameraObject == null && Camera.main != null)
         {
             cameraObject = Camera.main.gameObject;
         }
+
+        baseCameraRotation = cameraObject.transform.rotation;
 
         var camera = cameraObject.GetComponent<Camera>();
         float cameraDistance = Mathf.Abs(cameraObject.transform.position.z - transform.position.z);
@@ -77,6 +95,8 @@ public class TypingGameController : MonoBehaviour
 
     private void OnDestroy()
     {
+        Time.timeScale = 1f;
+
         if (Keyboard.current != null)
         {
             Keyboard.current.onTextInput -= OnTextInput;
@@ -85,8 +105,23 @@ public class TypingGameController : MonoBehaviour
 
     private void Update()
     {
+        if (alive && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            SetPaused(!paused);
+        }
+
+        if (paused)
+        {
+            return;
+        }
+
         if (!alive)
         {
+            if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+
             return;
         }
 
@@ -112,9 +147,36 @@ public class TypingGameController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (cameraObject == null)
+        {
+            return;
+        }
+
+        if (shakeTime > 0f)
+        {
+            shakeTime -= Time.deltaTime;
+            float falloff = Mathf.Clamp01(shakeTime / ShakeDuration);
+            float angle = Mathf.Sin(Time.time * 70f) * ShakeAngle * falloff;
+            cameraObject.transform.rotation = baseCameraRotation * Quaternion.Euler(0f, 0f, angle);
+        }
+        else if (cameraObject.transform.rotation != baseCameraRotation)
+        {
+            cameraObject.transform.rotation = baseCameraRotation;
+        }
+    }
+
+    private void SetPaused(bool value)
+    {
+        paused = value;
+        Time.timeScale = paused ? 0f : 1f;
+        infoLabel.text = paused ? "PAUZA\nESC pokra\u010dova\u0165" : string.Empty;
+    }
+
     private void OnTextInput(char c)
     {
-        if (!alive || jumping || !char.IsLetter(c))
+        if (!alive || paused || jumping || !char.IsLetter(c))
         {
             return;
         }
@@ -132,12 +194,21 @@ public class TypingGameController : MonoBehaviour
             {
                 typed.Clear();
                 RefreshLabels();
+                StartCoroutine(FlashWrong());
+                shakeTime = ShakeDuration;
             }
         }
         else
         {
             RefreshLabels();
         }
+    }
+
+    private IEnumerator FlashWrong()
+    {
+        typedLabel.color = new Color(1f, 0.35f, 0.35f);
+        yield return new WaitForSeconds(0.15f);
+        typedLabel.color = Color.white;
     }
 
     private void CorrectWord()
@@ -188,6 +259,7 @@ public class TypingGameController : MonoBehaviour
         int bankCount = platformsRoot.transform.childCount;
         int bankIndex = Mathf.Clamp(step * wordBanks.Length / Mathf.Max(1, bankCount), 0, wordBanks.Length - 1);
         WordBank bank = wordBanks[bankIndex];
+        bool levelChanged = currentBank != null && bank != currentBank;
 
         if (bank != currentBank)
         {
@@ -208,6 +280,27 @@ public class TypingGameController : MonoBehaviour
 
         usedWordIndices.Add(index);
         currentWord = bank.Words[index];
+
+        if (levelChanged)
+        {
+            StartCoroutine(PulseLevelLabel());
+        }
+    }
+
+    private IEnumerator PulseLevelLabel()
+    {
+        float t = 0f;
+        while (t < 0.3f)
+        {
+            t += Time.unscaledDeltaTime;
+            float pulse = Mathf.Sin(Mathf.Clamp01(t / 0.3f) * Mathf.PI);
+            levelLabel.transform.localScale = Vector3.one * (1f + 0.25f * pulse);
+            levelLabel.color = Color.Lerp(LevelColor, Color.white, pulse);
+            yield return null;
+        }
+
+        levelLabel.transform.localScale = Vector3.one;
+        levelLabel.color = LevelColor;
     }
 
     private void RefreshLabels()
@@ -226,11 +319,27 @@ public class TypingGameController : MonoBehaviour
 
         typedLabel.text = sb.ToString();
         scoreLabel.text = "SK\u00d3RE: " + score;
+        levelLabel.text = "LEVEL: " + currentBank.Level;
+        bestLabel.text = "NAJLEP\u0160IE: " + bestScore;
+    }
+
+    private void SaveScore()
+    {
+        if (score <= bestScore)
+        {
+            return;
+        }
+
+        bestScore = score;
+        PlayerPrefs.SetInt(HighScoreKey, bestScore);
+        PlayerPrefs.Save();
+        bestLabel.text = "NAJLEP\u0160IE: " + bestScore;
     }
 
     private void Die(string reason)
     {
         alive = false;
+        SaveScore();
 
         var playerRenderer = GetComponent<Renderer>();
         if (playerRenderer != null)
@@ -238,7 +347,7 @@ public class TypingGameController : MonoBehaviour
             playerRenderer.enabled = false;
         }
 
-        infoLabel.text = "GAME OVER - SK\u00d3RE: " + score;
+        infoLabel.text = "GAME OVER - SK\u00d3RE: " + score + "\nStla\u010d R pre restart";
         infoLabel.color = new Color(1f, 0.35f, 0.35f);
         Debug.Log("Death: " + reason);
     }
@@ -246,7 +355,8 @@ public class TypingGameController : MonoBehaviour
     private void Win()
     {
         alive = false;
-        infoLabel.text = "VYHRAL SI!";
+        SaveScore();
+        infoLabel.text = "VYHRAL SI!\nStla\u010d R pre restart";
         infoLabel.color = new Color(0.4f, 1f, 0.4f);
     }
 
@@ -263,6 +373,10 @@ public class TypingGameController : MonoBehaviour
         wordLabel = CreateLabel(canvasGo.transform, "WordLabel", 64f, new Vector2(0.5f, 1f), new Vector2(0f, -80f), TextAlignmentOptions.Center);
         typedLabel = CreateLabel(canvasGo.transform, "TypedLabel", 64f, new Vector2(0.5f, 1f), new Vector2(0f, -170f), TextAlignmentOptions.Center);
         scoreLabel = CreateLabel(canvasGo.transform, "ScoreLabel", 40f, new Vector2(0f, 1f), new Vector2(40f, -40f), TextAlignmentOptions.TopLeft);
+        levelLabel = CreateLabel(canvasGo.transform, "LevelLabel", 40f, new Vector2(1f, 1f), new Vector2(-40f, -40f), TextAlignmentOptions.TopRight);
+        levelLabel.color = LevelColor;
+        bestLabel = CreateLabel(canvasGo.transform, "BestLabel", 32f, new Vector2(1f, 1f), new Vector2(-40f, -95f), TextAlignmentOptions.TopRight);
+        bestLabel.color = new Color(0.75f, 0.75f, 0.75f);
         infoLabel = CreateLabel(canvasGo.transform, "InfoLabel", 72f, new Vector2(0.5f, 0.5f), Vector2.zero, TextAlignmentOptions.Center);
     }
 
