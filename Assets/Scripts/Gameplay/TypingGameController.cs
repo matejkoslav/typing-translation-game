@@ -110,16 +110,11 @@ public class TypingGameController : MonoBehaviour
             SetPaused(!paused);
         }
 
-        if (paused)
-        {
-            return;
-        }
-
-        if (!alive)
+        if (paused || !alive)
         {
             if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Restart();
             }
 
             return;
@@ -171,7 +166,13 @@ public class TypingGameController : MonoBehaviour
     {
         paused = value;
         Time.timeScale = paused ? 0f : 1f;
-        infoLabel.text = paused ? "PAUZA\nESC pokra\u010dova\u0165" : string.Empty;
+        infoLabel.text = paused ? "PAUZA\nESC pokra\u010dova\u0165\nR restart" : string.Empty;
+    }
+
+    private void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnTextInput(char c)
