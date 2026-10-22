@@ -353,17 +353,36 @@ public class TypingGameController : MonoBehaviour
         alive = false;
         bool newBest = SaveScore();
 
-        var playerRenderer = GetComponent<Renderer>();
-        if (playerRenderer != null)
-        {
-            playerRenderer.enabled = false;
-        }
+        shakeTime = ShakeDuration;
+        StartCoroutine(DeathRoutine());
 
         infoLabel.text = "GAME OVER - SK\u00d3RE: " + score
             + (newBest ? "\n<color=#66FF66>NEW BEST!</color>" : string.Empty)
             + "\nStla\u010d R pre restart";
         infoLabel.color = new Color(1f, 0.35f, 0.35f);
         Debug.Log("Death: " + reason);
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        var playerRenderer = GetComponent<Renderer>();
+        Vector3 start = transform.position;
+        Quaternion startRotation = transform.rotation;
+
+        float t = 0f;
+        while (t < 0.7f)
+        {
+            t += Time.deltaTime;
+            float p = Mathf.Clamp01(t / 0.7f);
+            transform.position = start + Vector3.down * (p * p * 3f);
+            transform.rotation = startRotation * Quaternion.Euler(0f, 0f, p * 180f);
+            yield return null;
+        }
+
+        if (playerRenderer != null)
+        {
+            playerRenderer.enabled = false;
+        }
     }
 
     private void Win()
