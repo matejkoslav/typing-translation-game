@@ -333,23 +333,24 @@ public class TypingGameController : MonoBehaviour
         bestLabel.text = "NAJLEP\u0160IE: " + bestScore;
     }
 
-    private void SaveScore()
+    private bool SaveScore()
     {
         if (score <= bestScore)
         {
-            return;
+            return false;
         }
 
         bestScore = score;
         PlayerPrefs.SetInt(HighScoreKey, bestScore);
         PlayerPrefs.Save();
         bestLabel.text = "NAJLEP\u0160IE: " + bestScore;
+        return true;
     }
 
     private void Die(string reason)
     {
         alive = false;
-        SaveScore();
+        bool newBest = SaveScore();
 
         var playerRenderer = GetComponent<Renderer>();
         if (playerRenderer != null)
@@ -357,7 +358,9 @@ public class TypingGameController : MonoBehaviour
             playerRenderer.enabled = false;
         }
 
-        infoLabel.text = "GAME OVER - SK\u00d3RE: " + score + "\nStla\u010d R pre restart";
+        infoLabel.text = "GAME OVER - SK\u00d3RE: " + score
+            + (newBest ? "\n<color=#66FF66>NEW BEST!</color>" : string.Empty)
+            + "\nStla\u010d R pre restart";
         infoLabel.color = new Color(1f, 0.35f, 0.35f);
         Debug.Log("Death: " + reason);
     }
@@ -365,8 +368,10 @@ public class TypingGameController : MonoBehaviour
     private void Win()
     {
         alive = false;
-        SaveScore();
-        infoLabel.text = "VYHRAL SI!\nStla\u010d R pre restart";
+        bool newBest = SaveScore();
+        infoLabel.text = "VYHRAL SI!"
+            + (newBest ? "\nNEW BEST!" : string.Empty)
+            + "\nStla\u010d R pre restart";
         infoLabel.color = new Color(0.4f, 1f, 0.4f);
     }
 
