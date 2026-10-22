@@ -11,8 +11,8 @@
       + SO trieda `WordBank` v `Assets/Scripts/Data/WordBank.cs` (`CefrLevel` enum, `Words`).
 - [x] Banky napojené do controllera — `WordBank[]` v inspektore (A1→C2), výber banky podľa
       postupu (2 platformy na level), random bez opakovania v rámci banky.
-- [x] UI polish — level badge + pulse, high score (PlayerPrefs), restart R, červený flash,
-      screen shake pri zlom slove, ESC pauza.
+- [x] UI polish — level badge + pulse, high score + NEW BEST, restart R (aj počas pauzy),
+      zelený/červený flash, screen shake, ESC pauza, death animácia.
 
 | Banka | Párov |
 |---|---|
