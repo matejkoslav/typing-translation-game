@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -8,18 +9,25 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// Prototype core loop: type the EN translation of the shown SK word,
+/// Prototype core loop: type the translation of the shown word (SK↔EN),
 /// the player hops one platform up, the camera slowly rises.
 /// Fall below the camera edge and you die.
 /// </summary>
 public class TypingGameController : MonoBehaviour
 {
     private const string HighScoreKey = "HighScore";
+    private const string DirectionKey = "Direction";
     private const float ShakeDuration = 0.2f;
     private const float ShakeAngle = 1.5f;
     private const float PlatformSpacing = 2f;
+    private const float HintRevealDuration = 1.5f;
     private static readonly Color LevelColor = new Color(0.5f, 0.8f, 1f);
-    private static readonly int[] HintCounts = { 2, 2, 1, 1, 0, 0 };
+
+    private enum Direction
+    {
+        SkToEn = 0,
+        EnToSk = 1,
+    }
 
     [SerializeField] private WordBank[] wordBanks;
     [SerializeField] private GameObject platformsRoot;
@@ -35,12 +43,16 @@ public class TypingGameController : MonoBehaviour
     private readonly HashSet<int> usedWordIndices = new HashSet<int>();
     private WordBank currentBank;
     private WordBank.WordEntry currentWord;
+    private Direction direction;
+    private bool choosingDirection;
     private int score;
     private int bestScore;
     private int stepIndex;
     private bool alive = true;
     private bool jumping;
     private bool paused;
+    private int hintIndex;
+    private float hintRevealTime;
     private float cameraHalfHeight;
     private float shakeTime;
     private Quaternion baseCameraRotation;
@@ -50,7 +62,11 @@ public class TypingGameController : MonoBehaviour
     private TextMeshProUGUI scoreLabel;
     private TextMeshProUGUI levelLabel;
     private TextMeshProUGUI bestLabel;
+    private TextMeshProUGUI directionLabel;
     private TextMeshProUGUI infoLabel;
+
+    private string Answer => direction == Direction.SkToEn ? currentWord.en : currentWord.sk;
+    private string Prompt => direction == Direction.SkToEn ? currentWord.sk : currentWord.en;
 
     private void Start()
     {
@@ -69,6 +85,7 @@ public class TypingGameController : MonoBehaviour
         }
 
         bestScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+        direction = (Direction)PlayerPrefs.GetInt(DirectionKey, (int)Direction.SkToEn);
 
         if (cameraObject == null && Camera.main != null)
         {
@@ -85,6 +102,9 @@ public class TypingGameController : MonoBehaviour
         BuildUi();
         SelectWord(0);
         RefreshLabels();
+
+        choosingDirection = true;
+        infoLabel.text = "Vyber smer:\n1  SK \u2192 EN\n2  EN \u2192 SK";
 
         if (Keyboard.current != null)
         {
@@ -108,6 +128,12 @@ public class TypingGameController : MonoBehaviour
 
     private void Update()
     {
+        if (choosingDirection)
+        {
+            HandleDirectionChoice();
+            return;
+        }
+
         if (alive && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             SetPaused(!paused);
@@ -127,6 +153,15 @@ public class TypingGameController : MonoBehaviour
         {
             typed.Length--;
             RefreshLabels();
+        }
+
+        if (!jumping && hintRevealTime > 0f)
+        {
+            hintRevealTime -= Time.deltaTime;
+            if (hintRevealTime <= 0f)
+            {
+                RefreshLabels();
+            }
         }
 
         cameraObject.transform.position += Vector3.up * cameraRiseSpeed * Time.deltaTime;
@@ -178,19 +213,62 @@ public class TypingGameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void HandleDirectionChoice()
+    {
+        if (Keyboard.current == null)
+        {
+            return;
+        }
+
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            SetDirection(Direction.SkToEn);
+        }
+        else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        {
+            SetDirection(Direction.EnToSk);
+        }
+    }
+
+    private void SetDirection(Direction value)
+    {
+        direction = value;
+        PlayerPrefs.SetInt(DirectionKey, (int)direction);
+        PlayerPrefs.Save();
+
+        typed.Clear();
+        choosingDirection = false;
+        infoLabel.text = string.Empty;
+        ResetHint();
+        RefreshLabels();
+    }
+
+    private void ResetHint()
+    {
+        hintRevealTime = 0f;
+
+        if (!hintsEnabled || currentBank.Level < WordBank.CefrLevel.B2 || Answer.Length == 0)
+        {
+            return;
+        }
+
+        hintIndex = Random.Range(0, Answer.Length);
+        hintRevealTime = HintRevealDuration;
+    }
+
     private void OnTextInput(char c)
     {
-        if (!alive || paused || jumping || !char.IsLetter(c))
+        if (!alive || paused || choosingDirection || jumping || !char.IsLetter(c))
         {
             return;
         }
 
         typed.Append(char.ToLowerInvariant(c));
-        string target = currentWord.en;
+        string target = Normalize(Answer);
 
-        if (typed.Length >= target.Length)
+        if (typed.Length >= Answer.Length)
         {
-            if (string.Equals(typed.ToString(), target, System.StringComparison.OrdinalIgnoreCase))
+            if (Normalize(typed.ToString()) == target)
             {
                 CorrectWord();
             }
@@ -300,6 +378,7 @@ public class TypingGameController : MonoBehaviour
 
         usedWordIndices.Add(index);
         currentWord = bank.Words[index];
+        ResetHint();
 
         if (levelChanged)
         {
@@ -325,19 +404,17 @@ public class TypingGameController : MonoBehaviour
 
     private void RefreshLabels()
     {
-        wordLabel.text = "Prelo\u017e: " + currentWord.sk;
-
-        int hintCount = hintsEnabled ? HintCounts[(int)currentBank.Level] : 0;
-        hintCount = Mathf.Min(hintCount, currentWord.en.Length - 1);
+        string answer = Answer;
+        wordLabel.text = "Prelo\u017e: " + Prompt;
 
         var sb = new StringBuilder();
-        for (int i = 0; i < currentWord.en.Length; i++)
+        for (int i = 0; i < answer.Length; i++)
         {
             char letter = i < typed.Length
                 ? typed[i]
-                : (i < hintCount ? currentWord.en[i] : '_');
+                : (i == hintIndex && hintRevealTime > 0f ? answer[i] : '_');
             sb.Append(letter);
-            if (i < currentWord.en.Length - 1)
+            if (i < answer.Length - 1)
             {
                 sb.Append(' ');
             }
@@ -347,6 +424,23 @@ public class TypingGameController : MonoBehaviour
         scoreLabel.text = "SK\u00d3RE: " + score;
         levelLabel.text = "LEVEL: " + currentBank.Level;
         bestLabel.text = "NAJLEP\u0160IE: " + bestScore;
+        directionLabel.text = direction == Direction.SkToEn ? "SK \u2192 EN" : "EN \u2192 SK";
+    }
+
+    private static string Normalize(string value)
+    {
+        string decomposed = value.ToLowerInvariant().Normalize(NormalizationForm.FormD);
+        var sb = new StringBuilder(decomposed.Length);
+
+        foreach (char c in decomposed)
+        {
+            if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString();
     }
 
     private bool SaveScore()
@@ -417,6 +511,8 @@ public class TypingGameController : MonoBehaviour
         levelLabel.color = LevelColor;
         bestLabel = CreateLabel(canvasGo.transform, "BestLabel", 32f, new Vector2(1f, 1f), new Vector2(-40f, -95f), TextAlignmentOptions.TopRight);
         bestLabel.color = new Color(0.75f, 0.75f, 0.75f);
+        directionLabel = CreateLabel(canvasGo.transform, "DirectionLabel", 32f, new Vector2(0f, 1f), new Vector2(40f, -95f), TextAlignmentOptions.TopLeft);
+        directionLabel.color = new Color(0.75f, 0.75f, 0.75f);
         infoLabel = CreateLabel(canvasGo.transform, "InfoLabel", 72f, new Vector2(0.5f, 0.5f), Vector2.zero, TextAlignmentOptions.Center);
     }
 
