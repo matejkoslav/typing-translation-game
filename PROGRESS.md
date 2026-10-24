@@ -6,15 +6,20 @@
 ## Hotové ✅
 
 - [x] Core loop prototyp — `Assets/Scripts/Gameplay/TypingGameController.cs`:
-      písanie SK→EN, skok postavičky, stúpajúca kamera, smrť pod kamerou, skóre, game over.
+      písanie SK↔EN, skok postavičky, stúpajúca kamera, smrť pod kamerou, skóre, game over.
 - [x] Word banky A1–C2 — `Assets/WordBanks/WordBank_A1.asset` … `_C2.asset` (**420 párov**)
       + SO trieda `WordBank` v `Assets/Scripts/Data/WordBank.cs` (`CefrLevel` enum, `Words`).
 - [x] Banky napojené do controllera — `WordBank[]` v inspektore (A1→C2), výber banky podľa
       postupu (2 platformy na level), random bez opakovania v rámci banky.
 - [x] UI polish — level badge + pulse, high score + NEW BEST, restart R (aj počas pauzy),
       zelený/červený flash, screen shake, ESC pauza, death animácia.
-- [x] Hint písmená — A1 2 → C2 0; vypína sa v Inspectori cez `hintsEnabled`.
+- [x] Hint nápoveda — len od B2 vyššie: jedno náhodné písmeno (nie vždy prvé) sa ukáže
+      na 1,5 s a potom zmizne; vypína sa v Inspectori cez `hintsEnabled`.
 - [x] Endless mode — plošiny sa recyklujú, hra nekončí po 12 slovách.
+- [x] EN↔SK prepínanie — voľba na štarte `1`/`2`, počas hry sa nedá prepnúť
+      (TAB by prezradil preklad). HUD badge `SK → EN` / `EN → SK`.
+      Porovnávanie je tolerantné: lowercase + bez diakritiky (`batozina` = `batožina`).
+      Voľba sa pamätá v `PlayerPrefs` (`Direction`).
 
 | Banka | Párov |
 |---|---|
@@ -27,15 +32,17 @@
 
 ## Next — v tomto poradí 🔜
 
-1. **Časový limit na slovo** podľa levelu (A1 ~8 s → C2 ~4 s), smrť pri vypršaní.
-2. **EN→SK mód** (prepínač) + tolerantné porovnávanie (lowercase, bez diakritiky).
-3. **Polish**: zvuk skoku/level-up, particles, pozadie.
+1. **Build Windows + Linux** a playtest na Intel iGPU (build zatiaľ neoverený).
+2. **Polish**: zvuk skoku/level-up, particles, pozadie.
+3. **v2**: skins postavičky + power-upy (hinty sa presunú pod konkrétne skiny).
 
 ## Poznámky 📌
 
+- **Per-word timer sme vynechali** — tlak robí stúpajúca kamera (MVP „smrť pri pomalom písaní“).
+  Samostatný countdown je možný doplnok, nie nutnosť.
 - Banky sú len `sk` (prompt) + `en` (odpoveď). EN→SK mód = swap polí, netreba druhú sadu.
 - Žiadne viacslovné frázy, žiadne duplicitné SK/EN naprieč bankami (overené skriptom).
 - C1/C2 sú malé (50/30) a slová sú dlhé → "bonus" pri vysokom leveli, nie hlavná hracia plocha.
-- Obtiažnosť = **banka + hintCount + timeLimit**, banka sama ju nerieši.
+- Obtiažnosť = **banka + hint (od B2) + rýchlosť kamery**, banka sama ju nerieši.
 - Dátový súbor sa generoval dočasným Editor skriptom, ktorý je už zmazaný; banky sa už needitujú skriptom,
   len v Inspectori alebo podľa potreby novým jednorazovým builderom.
