@@ -20,6 +20,18 @@
       (TAB by prezradil preklad). HUD badge `SK → EN` / `EN → SK`.
       Porovnávanie je tolerantné: lowercase + bez diakritiky (`batozina` = `batožina`).
       Voľba sa pamätá v `PlayerPrefs` (`Direction`).
+- [x] 3D modely — `character.fbx` (Player) + `platforma.fbx` (12× v `Platforms`), všetky
+      materiály na `Custom/Toon Emission Outline`. Postava 2,0 jednotky, plošiny
+      3,0 × 0,557 × 2,08; collider top sedí s vizuálom. Overené v Play mode (skóre + 2 skoky).
+      `DeathRoutine` používa `GetComponentInChildren<Renderer>()` kvôli modelu v child objekte.
+- [x] Visual tuning — postava otočená čelom ku kamere (`CharacterModel` rotácia 180° okolo Y).
+      Plošiny rozostup **3,5** (bolo 2,0) → medzi hlavou a plošinou nad ním je ~0,94 jednotky,
+      žiadne prekrývanie pri státí. X-cikcak zosilnený na `0 / ±0,75`.
+      Kamera: `cameraRiseSpeed` 0,25 → **0,4**, `cameraFollowSpeed` 6 → **8**.
+      Skok: `jumpDuration` 0,35 → **0,55**, `jumpArcHeight` 0,9 → **1,95** (v apex skoku sú
+      nohy ~0,2 nad plošinou, takže dopadá zhora a neprepadáva cez ňu).
+      `PlatformSpacing` v skripte = 3,5 (musí sedieť so scénou kvôli recyklácii).
+      Overené v Play mode: 8 slov / 8 skokov, skóre 8, bez smrti.
 
 | Banka | Párov |
 |---|---|
