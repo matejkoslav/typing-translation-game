@@ -19,7 +19,7 @@ public class TypingGameController : MonoBehaviour
     private const string DirectionKey = "Direction";
     private const float ShakeDuration = 0.2f;
     private const float ShakeAngle = 1.5f;
-    private const float PlatformSpacing = 2f;
+    private const float PlatformSpacing = 3.5f;
     private const float HintRevealDuration = 1.5f;
     private static readonly Color LevelColor = new Color(0.5f, 0.8f, 1f);
 
@@ -32,11 +32,11 @@ public class TypingGameController : MonoBehaviour
     [SerializeField] private WordBank[] wordBanks;
     [SerializeField] private GameObject platformsRoot;
     [SerializeField] private GameObject cameraObject;
-    [SerializeField] private float cameraRiseSpeed = 0.35f;
+    [SerializeField] private float cameraRiseSpeed = 0.4f;
     [SerializeField] private float cameraFollowOffset = 2.5f;
-    [SerializeField] private float cameraFollowSpeed = 6f;
-    [SerializeField] private float jumpDuration = 0.35f;
-    [SerializeField] private float jumpArcHeight = 0.9f;
+    [SerializeField] private float cameraFollowSpeed = 8f;
+    [SerializeField] private float jumpDuration = 0.55f;
+    [SerializeField] private float jumpArcHeight = 1.95f;
     [SerializeField] private bool hintsEnabled = true;
 
     private readonly StringBuilder typed = new StringBuilder();
@@ -474,7 +474,7 @@ public class TypingGameController : MonoBehaviour
 
     private IEnumerator DeathRoutine()
     {
-        var playerRenderer = GetComponent<Renderer>();
+        var playerRenderer = GetComponentInChildren<Renderer>();
         Vector3 start = transform.position;
         Quaternion startRotation = transform.rotation;
 
